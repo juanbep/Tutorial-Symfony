@@ -13,9 +13,16 @@ class StandarController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('standar/index.html.twig', [
-            'controller_name' => 'Juan David',
-        ]);
+        $num1 = 1;
+        $num2 = 100;
+        $suma = $num1 + $num2;
+        $nombres = "diego, julian, miguel, WENDY, papa, mama";
+        return $this->render('standar/index.html.twig', 
+                array('resultadoSum' => $suma, 
+                    'num1' => $num1, 
+                    'num2' => $num2,
+                    'nombres' => $nombres
+                ));
     }
     
     /**

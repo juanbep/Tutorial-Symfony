@@ -3,21 +3,28 @@
 {% block title %}Hello StandarController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-    {{ controller_name  }}
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/my_project_name/src/Controller/StandarController.php'|file_link(0) }}">src/Controller/StandarController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/my_project_name/templates/standar/index.html.twig'|file_link(0) }}">templates/standar/index.html.twig</a></code></li>
-    </ul>
-</div>
+        
+        {#esto es un comentario en Twig#}
+        {% set miVariable = 'Hola Mundo' %}
+        {{ miVariable }}<br>
+        {{ resultadoSum }}
+        <br>
+        
+        {% if num1 > num2 %}
+            Numero 1 es mayor 
+            {% else %}
+                Numero 2 es mayor
+        {% endif %}    
+            
+        <br>
+        {{ nombres | upper}}
+        <br>
+        
+        {% set arrayNombres = nombres | split(',') %}
+        {% for nombre in arrayNombres %}
+            * {{ nombre }}<br>
+        {% endfor %}
+        <br>
         
         <a href = "{{ path('pagina2', {'nombre':'Juan David Beca'}) }}"> ir a pagina 2 </a>
 {% endblock %}
