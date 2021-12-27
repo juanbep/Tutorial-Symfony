@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class StandarController extends AbstractController
 {
     /**
-     * @Route("/standar", name="standar")
+     * @Route("/", name="index")
      */
     public function index(): Response
     {
@@ -17,4 +17,12 @@ class StandarController extends AbstractController
             'controller_name' => 'Juan David',
         ]);
     }
+    
+    /**
+     * @Route("/pagina2/{nombre}/", name = "pagina2")
+     */
+    public function pagina2($nombre){
+        return $this->render('standar/pagina2.html.twig', array("parametro1" => $nombre));
+    }
+    
 }
