@@ -28,7 +28,7 @@ class Producto
     private $codigo;
     
      /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Categoria", inversedBy="productos")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Categoria", inversedBy="productos", cascade={"persist"})
      */
     private $categoria;
     
@@ -40,7 +40,7 @@ class Producto
         $this->codigo = $codigo;
     }
 
-        public function getId(): ?int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -65,6 +65,18 @@ class Producto
     function setCodigo($codigo): self
     {
         $this->codigo = $codigo;
+        
+        return $this;
+    }
+
+    function getCategoria(): ?string
+    {
+        return $this->categoria;
+    }
+
+    function setCategoria($categoria): self
+    {
+        $this->categoria = $categoria;
         
         return $this;
     }

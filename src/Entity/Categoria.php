@@ -28,7 +28,7 @@ class Categoria
      */
     private $productos;
     
-    function __construct($nombre = null)
+    public function __construct($nombre = null)
     {
         $this->nombre = $nombre;
         $this->productos = new ArrayCollection();

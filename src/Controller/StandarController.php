@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Categoria;
 use App\Entity\Producto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,7 +39,9 @@ class StandarController extends AbstractController
      */
     public  function PersistirDatos(){
         $entityManager = $this->getDoctrine()->getManager();
-        $producto = new Producto('TV pantalla plana', 'TV-01');
+        $categoria = new Categoria('Tecnologia');
+        $producto = new Producto('TV LCD 32 pulgadas', 'TV-02');
+        $producto -> setCategoria($categoria);
         $entityManager->persist($producto);
         $entityManager->flush();
         
