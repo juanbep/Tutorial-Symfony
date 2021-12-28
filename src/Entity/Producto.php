@@ -26,8 +26,21 @@ class Producto
      * @ORM\Column(type="string", length=250)
      */
     private $codigo;
+    
+     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Categoria", inversedBy="productos")
+     */
+    private $categoria;
+    
+    
+    
+    public function __construct($nombre=null, $codigo=null)
+    {
+        $this->nombre = $nombre;
+        $this->codigo = $codigo;
+    }
 
-    public function getId(): ?int
+        public function getId(): ?int
     {
         return $this->id;
     }

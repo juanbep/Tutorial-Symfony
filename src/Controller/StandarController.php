@@ -38,9 +38,7 @@ class StandarController extends AbstractController
      */
     public  function PersistirDatos(){
         $entityManager = $this->getDoctrine()->getManager();
-        $producto = new Producto();
-        $producto ->setNombre('Mouse');
-        $producto ->setCodigo('C-02');
+        $producto = new Producto('TV pantalla plana', 'TV-01');
         $entityManager->persist($producto);
         $entityManager->flush();
         
