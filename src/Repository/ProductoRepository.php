@@ -18,6 +18,22 @@ class ProductoRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Producto::class);
     }
+    
+    
+    /**
+     * @return Producto
+     */
+    public function BuscarProductoPorId(int $idProducto){ 
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT producto.id, producto.nombre, producto.codigo 
+            FROM App\Entity\Producto producto 
+            WHERE producto.id = :idProducto'
+        )->setParameter('idProducto', $idProducto);
+        
+        return $query->getSingleResult();
+    }
+   
 
     // /**
     //  * @return Producto[] Returns an array of Producto objects

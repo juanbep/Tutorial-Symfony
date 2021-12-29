@@ -69,18 +69,14 @@ class Producto
         return $this;
     }
 
-    function getCategoria(): ?string
+    function getCategoria()
     {
         return $this->categoria;
     }
 
-    function setCategoria($categoria): self
+    function setCategoria($categoria): void
     {
         $this->categoria = $categoria;
-        
-        return $this;
     }
-
-
     
 }

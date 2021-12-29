@@ -48,5 +48,25 @@ class StandarController extends AbstractController
         return $this->render ('standar/success.html.twig');
     }
     
+    /**
+     * @Route("/Busquedas/{idProducto}", name = "Busquedas")
+     */
     
+    public function Busquedas($idProducto){
+        $em = $this->getDoctrine()->getManager();
+        $producto  = $em -> getRepository(Producto::class) -> find(1);//solo busca por la llave primaria 
+        $producto2 = $em -> getRepository(Producto::class) -> findOneBy(['codigo' => 'TV-01', 'nombre' => 'TV pantalla plana']);//busca por varios atributos 
+        $producto3 = $em -> getRepository(Producto::class) -> findBy(['categoria' => 1]);//trae todos los registros de la tabla con el atributo en comun 
+        $producto4 = $em -> getRepository(Producto::class) -> findAll();//trae todos los registros de la tabla
+        
+        //*******************************************************************************
+        $productRepository = $em -> getRepository(Producto::class) -> BuscarProductoPorId($idProducto);
+        
+        return $this->render ('standar/busqueda.html.twig',
+                array('find'=>$producto,
+                         'findOneBy'=>$producto2, 
+                         'findBy'=>$producto3, 
+                         'findAll'=>$producto4,
+                         'BuscarProductoPorId'=>$productRepository), );
+    }
 }
