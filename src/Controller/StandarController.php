@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Categoria;
 use App\Entity\Producto;
+use \App\Form\ProductoType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,6 +16,8 @@ class StandarController extends AbstractController
      */
     public function index(): Response
     {
+        $producto = new Producto();
+        $form = $this -> createForm(ProductoType::class, $producto);
         $num1 = 1;
         $num2 = 100;
         $suma = $num1 + $num2;
@@ -23,7 +26,8 @@ class StandarController extends AbstractController
                 array('resultadoSum' => $suma, 
                     'num1' => $num1, 
                     'num2' => $num2,
-                    'nombres' => $nombres
+                    'nombres' => $nombres,
+                    'form' => $form -> createView()
                 ));
     }
     
