@@ -6,6 +6,7 @@ use App\Entity\Categoria;
 use App\Entity\Producto;
 use \App\Form\ProductoType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,7 +15,7 @@ class StandarController extends AbstractController
     /**
      * @Route("/", name="index")
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
         $producto = new Producto();
         $form = $this -> createForm(ProductoType::class, $producto);
@@ -22,6 +23,17 @@ class StandarController extends AbstractController
         $num2 = 100;
         $suma = $num1 + $num2;
         $nombres = "diego, julian, miguel, WENDY, papa, mama";
+        $form->handleRequest($request);
+        
+        if($form ->isSubmitted() && $form -> isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $producto = $form -> getData();
+            $em->persist($producto);
+            $em->flush();
+            return $this->redirectToRoute('index');
+        }
+        
+        
         return $this->render('standar/index.html.twig', 
                 array('resultadoSum' => $suma, 
                     'num1' => $num1, 
@@ -35,7 +47,15 @@ class StandarController extends AbstractController
      * @Route("/pagina2/{nombre}/", name = "pagina2")
      */
     public function pagina2($nombre){
-        return $this->render('standar/pagina2.html.twig', array("parametro1" => $nombre));
+        $form = $this->createFormBuilder()
+            ->add('nombre')
+            ->add('codigo')
+            ->add('categoria')
+            ->add('Enviar')
+            ->getForm();    
+                    
+            
+        return $this->render('standar/pagina2.html.twig', array("parametro1" => $nombre, "form" => $form->createView()));
     }
     
     /**
