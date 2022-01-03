@@ -6,6 +6,8 @@ use App\Entity\Categoria;
 use App\Entity\Producto;
 use \App\Form\ProductoType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -46,13 +48,27 @@ class StandarController extends AbstractController
     /**
      * @Route("/pagina2/{nombre}/", name = "pagina2")
      */
-    public function pagina2($nombre){
+    public function pagina2(Request $request, $nombre){
         $form = $this->createFormBuilder()
             ->add('nombre')
             ->add('codigo')
-            ->add('categoria')
-            ->add('Enviar')
-            ->getForm();    
+            ->add('categoria', EntityType::class,[
+                'class' => Categoria::class,
+                'choice_label' => 'nombre'
+            ])
+            ->add('Enviar', SubmitType::class)
+            ->getForm();
+            $form->handleRequest($request);
+            
+            if($form ->isSubmitted() && $form -> isValid()){
+                $em = $this->getDoctrine()->getManager();
+                $data = $form->getData();
+                $producto = new Producto($data['nombre'], $data['codigo']);
+                $producto->setCategoria($data['categoria']);
+                $em->persist($producto);
+                $em->flush();
+                return $this->redirectToRoute('pagina2',['nombre'=>'Guardado Exitoso']);
+            }
                     
             
         return $this->render('standar/pagina2.html.twig', array("parametro1" => $nombre, "form" => $form->createView()));
