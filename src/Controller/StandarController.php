@@ -19,30 +19,38 @@ class StandarController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $producto = new Producto();
-        $form = $this -> createForm(ProductoType::class, $producto);
-        $num1 = 1;
-        $num2 = 100;
-        $suma = $num1 + $num2;
-        $nombres = "diego, julian, miguel, WENDY, papa, mama";
-        $form->handleRequest($request);
+        $user = $this->getUser();
+        if($user){
+            $producto = new Producto();
+            $form = $this -> createForm(ProductoType::class, $producto);
+            $num1 = 1;
+            $num2 = 100;
+            $suma = $num1 + $num2;
+            $nombres = "diego, julian, miguel, WENDY, papa, mama";
+            $form->handleRequest($request);
         
-        if($form ->isSubmitted() && $form -> isValid()){
-            $em = $this->getDoctrine()->getManager();
-            $producto = $form -> getData();
-            $em->persist($producto);
-            $em->flush();
-            return $this->redirectToRoute('index');
-        }
+            if($form ->isSubmitted() && $form -> isValid()){
+                $em = $this->getDoctrine()->getManager();
+                $producto = $form -> getData();
+                $em->persist($producto);
+                $em->flush();
+                return $this->redirectToRoute('index');
+           
+            }
+
+
+            return $this->render('standar/index.html.twig', 
+                    array('resultadoSum' => $suma, 
+                        'num1' => $num1, 
+                        'num2' => $num2,
+                        'nombres' => $nombres,
+                        'form' => $form -> createView()
+                    ));
+         }
+         else{
+             return $this->redirectToRoute('fos_user_security_login');
+         }
         
-        
-        return $this->render('standar/index.html.twig', 
-                array('resultadoSum' => $suma, 
-                    'num1' => $num1, 
-                    'num2' => $num2,
-                    'nombres' => $nombres,
-                    'form' => $form -> createView()
-                ));
     }
     
     /**
