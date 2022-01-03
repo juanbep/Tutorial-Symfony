@@ -88,6 +88,9 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "friendsofsymfony/user-bundle": {
+        "version": "3.x-dev"
+    },
     "laminas/laminas-code": {
         "version": "4.5.1"
     },
@@ -99,6 +102,9 @@
     },
     "nikic/php-parser": {
         "version": "v4.13.2"
+    },
+    "paragonie/random_compat": {
+        "version": "v2.0.0"
     },
     "phar-io/manifest": {
         "version": "2.0.3"
@@ -510,6 +516,9 @@
         "version": "v5.4.0"
     },
     "symfony/string": {
+        "version": "v5.4.0"
+    },
+    "symfony/templating": {
         "version": "v5.4.0"
     },
     "symfony/translation": {
